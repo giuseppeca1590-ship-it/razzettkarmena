@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arco Collection — Razzett Karmena · St Paul's Bay</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --black:#111;--gray:#444;--gray-light:#777;
+  --border:#e8e4df;--bg:#fff;--bg2:#faf9f7;--bg3:#f4f1ec;
+}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--black);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--border);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 16px 0 0}
+.nav-logo img{height:34px;width:auto;object-fit:contain}
+.nav-links{display:flex;gap:20px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-left:24px}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);text-decoration:none;white-space:nowrap;transition:color .2s}
+.nav-links a:hover{color:var(--black)}
+
+/* HERO */
+.hero{position:relative;height:70vh;min-height:420px;max-height:600px;display:flex;align-items:flex-end;overflow:hidden}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.75) saturate(.85)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.75) 0%,rgba(0,0,0,.2) 60%,rgba(0,0,0,.4) 100%)}
+.hero-inner{position:relative;z-index:1;padding:0 24px 56px;max-width:580px}
+.hero-location{font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:10px}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,7vw,3.8rem);font-weight:400;font-style:italic;color:#fff;line-height:1.12;margin-bottom:12px}
+.hero-address{font-size:.8rem;color:rgba(255,255,255,.5);margin-bottom:24px}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px}
+.hero-tag{font-size:.68rem;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:5px 14px}
+
+/* SECTION */
+.sec{padding:48px 24px;border-bottom:1px solid var(--border)}
+.inner{max-width:600px;margin:0 auto}
+.eyebrow{font-size:.6rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gray-light);margin-bottom:10px}
+.sec-title{font-family:'Playfair Display',serif;font-size:1.65rem;font-weight:400;color:var(--black);margin-bottom:6px;line-height:1.2}
+.rule{width:28px;height:1.5px;background:var(--black);margin:16px 0 24px}
+
+/* CARD */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:20px;margin-bottom:12px}
+.card-label{font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-light);margin-bottom:8px}
+.card p{font-size:.9rem;color:#111;line-height:1.75;margin-bottom:8px}
+.card p:last-child{margin-bottom:0}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:480px){.two-col{grid-template-columns:1fr}}
+
+/* BUILDING PHOTO */
+.bldg-photo{border-radius:6px;overflow:hidden;margin-bottom:24px;position:relative}
+.bldg-photo img{width:100%;height:380px;object-fit:cover;object-position:center 55%;display:block}
+.bldg-caption{position:absolute;bottom:0;left:0;right:0;padding:10px 14px;background:linear-gradient(transparent,rgba(0,0,0,.65));font-size:.72rem;color:rgba(255,255,255,.85)}
+
+/* STEPS */
+.steps{display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:44px 1fr;gap:12px;padding:20px 0;border-bottom:1px solid var(--border)}
+.step:last-child{border-bottom:none}
+.step-num{width:36px;height:36px;border:1.5px solid var(--black);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:600;color:var(--black);flex-shrink:0;margin-top:2px}
+.step-title{font-weight:600;font-size:.9rem;color:var(--black);margin-bottom:6px}
+.step-body{font-size:.87rem;color:#222;line-height:1.7}
+.badge{display:inline-block;font-family:'Inter',monospace;font-size:.85rem;font-weight:700;background:var(--black);color:#fff;border-radius:3px;padding:2px 8px;letter-spacing:.06em}
+
+/* WIFI */
+.wifi-box{background:#111;border-radius:6px;padding:28px 24px;color:#fff}
+.wifi-field-label{font-size:.62rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px}
+.wifi-field-value{font-size:1rem;font-weight:500;color:#fff;margin-bottom:20px}
+.wifi-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:10px 20px;border-radius:4px;font-size:.78rem;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif}
+
+/* RULES */
+.rule-list{list-style:none}
+.rule-item{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--border)}
+.rule-item:last-child{border-bottom:none}
+.rule-icon{font-size:1rem;flex-shrink:0;margin-top:2px;width:20px;text-align:center}
+.rule-title{font-weight:600;font-size:.88rem;color:var(--black);margin-bottom:3px}
+.rule-desc{font-size:.84rem;color:#222;line-height:1.65}
+.fee-red{color:#c0392b;font-weight:600;font-size:.78rem}
+
+/* KNOW */
+.know-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:480px){.know-grid{grid-template-columns:1fr}}
+.know-card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:16px}
+.know-title{font-weight:600;font-size:.84rem;color:var(--black);margin-bottom:4px}
+.know-desc{font-size:.8rem;color:#222;line-height:1.6}
+
+/* ESSENTIALS */
+.ess-list{display:flex;flex-direction:column}
+.ess-item{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;gap:12px}
+.ess-item:last-child{border-bottom:none}
+.ess-left{display:flex;align-items:center;gap:12px}
+.ess-icon{font-size:.95rem;width:24px;text-align:center;flex-shrink:0}
+.ess-name{font-size:.87rem;font-weight:500;color:var(--black);margin-bottom:2px}
+.ess-detail{font-size:.75rem;color:var(--gray-light)}
+.map-link{font-size:.65rem;font-weight:600;letter-spacing:.06em;color:var(--black);border:1px solid #ccc;border-radius:3px;padding:6px 0;background:#fff;white-space:nowrap;text-transform:uppercase;width:72px;text-align:center;display:block}
+
+/* RESTAURANTS */
+.cat-label{font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-light);margin:28px 0 14px;display:flex;align-items:center;gap:10px}
+.cat-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.resto-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:480px){.resto-grid{grid-template-columns:1fr}}
+.resto-card{background:#fff;border:1px solid var(--border);border-radius:6px;padding:16px;text-decoration:none;color:inherit;display:block}
+.resto-logo{margin-bottom:12px;min-height:36px;display:flex;align-items:center}
+.resto-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:400;color:var(--black);margin-bottom:4px}
+.resto-tag{display:inline-block;font-size:.65rem;color:var(--gray-light);background:var(--bg3);border-radius:3px;padding:2px 7px;margin-bottom:8px}
+.resto-desc{font-size:.8rem;color:#222;line-height:1.6;margin-bottom:10px}
+.resto-map{font-size:.68rem;font-weight:600;letter-spacing:.06em;color:var(--black);text-transform:uppercase}
+
+/* TRANSPORT */
+.transport-list{display:flex;flex-direction:column;gap:10px}
+.transport-card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:16px 18px;display:flex;gap:14px;align-items:flex-start}
+.transport-icon{font-size:1.1rem;flex-shrink:0;margin-top:1px}
+.transport-name{font-weight:600;font-size:.88rem;color:var(--black);margin-bottom:3px}
+.transport-desc{font-size:.82rem;color:#222;line-height:1.65}
+
+/* PLACES */
+.places-list{display:flex;flex-direction:column;gap:10px}
+.place-card{background:#fff;border:1px solid var(--border);border-radius:6px;padding:14px 16px;text-decoration:none;color:inherit;display:grid;grid-template-columns:80px 1fr;gap:12px;align-items:center}
+.place-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:400;color:var(--black);margin-bottom:4px}
+.place-desc{font-size:.8rem;color:#222;line-height:1.6}
+
+/* BEACHES */
+.beach-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+@media(max-width:480px){.beach-grid{grid-template-columns:1fr}}
+.beach-card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:16px;text-align:center}
+.beach-icon{font-size:1.3rem;margin-bottom:8px;display:block}
+.beach-name{font-weight:600;font-size:.84rem;color:var(--black);margin-bottom:3px}
+.beach-time{font-size:.75rem;color:var(--gray-light)}
+
+/* TRIPS */
+.trips-list{display:flex;flex-direction:column;gap:10px}
+.trip-card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:18px}
+.trip-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:400;color:var(--black);margin-bottom:3px}
+.trip-how{font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-light);margin-bottom:8px}
+.trip-desc{font-size:.82rem;color:#222;line-height:1.65}
+
+/* CONTACT */
+.contact-card{background:#111;border-radius:6px;padding:24px;display:flex;align-items:center;gap:18px;text-decoration:none;color:inherit;margin-bottom:12px}
+.contact-av{width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;flex-shrink:0}
+.contact-name{font-weight:600;font-size:.95rem;color:#fff;margin-bottom:2px}
+.contact-role{font-size:.72rem;color:rgba(255,255,255,.45);margin-bottom:12px}
+.contact-num{font-size:.85rem;color:rgba(255,255,255,.65);margin-bottom:14px}
+.wa-btn{display:inline-flex;align-items:center;gap:7px;background:#25D366;color:#fff;border-radius:4px;padding:8px 18px;font-size:.78rem;font-weight:500}
+
+/* CLOSING */
+.closing{background:#111;padding:56px 24px;text-align:center}
+.closing-logo{max-width:160px;margin:0 auto 32px}
+.closing-logo img{width:100%;height:auto}
+.closing-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:400;font-style:italic;color:#fff;margin-bottom:12px;line-height:1.4}
+.closing-sub{font-size:.85rem;color:rgba(255,255,255,.45);max-width:340px;margin:0 auto 28px;line-height:1.75}
+.closing-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.75);border-radius:4px;padding:11px 24px;font-size:.78rem;text-decoration:none}
+.closing-tag{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.18);margin-top:40px}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease}
+.rv.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+
+/* PIN GATE */
+#pinGate{position:fixed;inset:0;background:#fff;display:flex;align-items:center;justify-content:center;z-index:9999;padding:24px}
+.pg-box{width:100%;max-width:340px;text-align:center}
+.pg-logo{margin:0 auto 40px;max-width:180px}
+.pg-logo img{width:100%;height:auto}
+.pg-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:400;color:#111;margin-bottom:8px}
+.pg-sub{font-size:.83rem;color:#555;margin-bottom:32px;line-height:1.6}
+.pg-input{width:100%;padding:14px 16px;font-size:1.4rem;letter-spacing:.4em;text-align:center;border:none;border-bottom:2px solid #111;background:transparent;outline:none;font-family:'Inter',sans-serif;color:#111;margin-bottom:12px}
+.pg-input.error{border-color:#c0392b}
+.pg-err{font-size:.78rem;color:#c0392b;min-height:16px;margin-bottom:12px;display:none}
+.pg-err.on{display:block}
+.pg-btn{width:100%;padding:14px;background:#111;color:#fff;border:none;font-size:.8rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;margin-bottom:16px}
+.pg-btn:hover{background:#333}
+.pg-note{font-size:.72rem;color:#999}
+</style>
+</head>
+<body>
+
+<!-- PIN GATE -->
+<div id="pinGate">
+  <div class="pg-box">
+    <div class="pg-logo"><img src="arco.png" alt="Arco Collection"></div>
+    <div class="pg-title">Welcome</div>
+    <p class="pg-sub">Enter your access code to open your guest guide.</p>
+    <input class="pg-input" id="pgInput" type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="6" placeholder="· · · · · ·" autocomplete="off">
+    <div class="pg-err" id="pgErr">Incorrect code. Please try again.</div>
+    <button class="pg-btn" id="pgBtn">Open Guide</button>
+    <p class="pg-note">Your access code is shared before check-in.</p>
+  </div>
+</div>
+
+<div id="gbContent" style="display:none;">
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero" aria-label="Arco Collection"><img src="arco.png" alt="Arco Collection"></a>
+  <div class="nav-links">
+    <a href="#checkin">Check-in</a>
+    <a href="#luggage">Luggage</a>
+    <a href="#wifi">WiFi</a>
+    <a href="#rules">Rules</a>
+    <a href="#know">Good to Know</a>
+    <a href="#eat">Eat &amp; Drink</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="hero">
+  <video autoplay muted loop playsinline>
+    <source src="https://pender083.arcocollection.com/video.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <div class="hero-location">St Paul's Bay, Malta</div>
+    <h1>Razzett Karmena</h1>
+    <div class="hero-address">Traditional Maltese farmhouse · St Paul's Bay</div>
+    <!-- TODO: confirm map pin (currently Tal-Qadi Temple link) -->
+    <div style="margin-bottom:24px;"><a href="https://maps.app.goo.gl/wiRucmSguVDu6Kdx6?g_st=ic" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;font-size:.72rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:8px 18px;border-radius:4px;width:auto;">📍 View on Map</a></div>
+    <div class="hero-tags">
+      <span class="hero-tag">Self check-in</span>
+      <span class="hero-tag">Farmhouse</span>
+      <span class="hero-tag">St Paul's Bay</span>
+    </div>
+  </div>
+</div>
+
+<!-- CHECK-IN -->
+<section class="sec" id="checkin">
+  <div class="inner">
+    <div class="eyebrow rv">Arrival</div>
+    <div class="sec-title rv d1">Check-in</div>
+    <div class="rule rv d1"></div>
+    <div class="two-col rv d2" style="margin-bottom:20px;">
+      <div class="card"><div class="card-label">Check-in time</div><p><strong>From 4:00 PM</strong><br>Self check-in — collect your keys from the <strong>key locker</strong> at the entrance gate (code <strong>4411</strong>).</p></div>
+      <div class="card"><div class="card-label">Early arrival?</div><p>If you arrive before 4:00 PM, please contact <strong>Martina via WhatsApp</strong>. We'll do our best to accommodate or arrange luggage drop-off nearby.</p></div>
+    </div>
+    <div class="card rv d2" style="border-left:3px solid #111;margin-bottom:20px;">
+      <p><strong>Property:</strong> Razzett Karmena · St Paul's Bay</p>
+      <p>Follow the steps below — they walk you from the street to your front door.</p>
+    </div>
+
+    <div class="bldg-photo rv d2">
+      <img src="gate.jpg" alt="Razzett Karmena entrance gate">
+      <div class="bldg-caption">Step 1 — The entrance is the <strong>arched iron gate</strong> with the <strong>Razzett Karmena</strong> sign on the left</div>
+    </div>
+    <!-- TODO: locker position + steps from the gate to the front door -->
+    <div class="card rv d2" style="border-left:3px solid #111;">
+      <p><strong>Step 2</strong> — Open the key locker with code <strong>4411</strong> and take your keys. Welcome home!</p>
+    </div>
+  </div>
+</section>
+
+<!-- CHECK-OUT -->
+<section class="sec" id="checkout">
+  <div class="inner">
+    <div class="eyebrow rv">Departure</div>
+    <div class="sec-title rv d1">Check-out</div>
+    <div class="rule rv d1"></div>
+    <div class="card rv d2"><div class="card-label">By 10:00 AM</div><p>Please leave the house by 10:00 AM on your departure day.</p><!-- TODO: confirm keys go back in the locker --><p>Lock the door behind you and <strong>put the keys back in the key locker</strong> at the entrance (code <strong>4411</strong>). A quick message once you've left is always appreciated.</p></div>
+  </div>
+</section>
+
+<!-- LUGGAGE -->
+<section class="sec" id="luggage">
+  <div class="inner">
+    <div class="eyebrow rv">Before check-in or after check-out</div>
+    <div class="sec-title rv d1">Luggage Storage</div>
+    <div class="rule rv d1"></div>
+    <p style="font-size:.88rem;color:#222;margin-bottom:18px;line-height:1.75;" class="rv d2">If you need to store your bags before check-in or after check-out, send us a quick message and we'll suggest the closest reliable options around St Paul's Bay.</p>
+    <div class="card rv d2"><div class="card-label">Need help with bags?</div><p>Reach out via WhatsApp and we'll guide you to the most convenient nearby luggage storage point.</p></div>
+  </div>
+</section>
+
+<!-- WIFI -->
+<section class="sec" id="wifi">
+  <div class="inner">
+    <div class="eyebrow rv">Stay connected</div>
+    <div class="sec-title rv d1">WiFi</div>
+    <div class="rule rv d1"></div>
+    <div class="wifi-box rv d2">
+      <div class="wifi-field-label">Network name</div>
+      <div class="wifi-field-value" id="wifiName">GOINTERNET-8CF280</div>
+      <div class="wifi-field-label">Password</div>
+      <div class="wifi-field-value" id="wifiPass">FgYfYt3meH</div>
+      <button class="wifi-btn" onclick="copyWifi()"><span id="wifiBtn">📋 Copy password</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- RULES -->
+<section class="sec" id="rules">
+  <div class="inner">
+    <div class="eyebrow rv">Please note</div>
+    <div class="sec-title rv d1">House Rules</div>
+    <div class="rule rv d1"></div>
+    <ul class="rule-list rv d2">
+      <li class="rule-item"><span class="rule-icon">🚭</span><div><div class="rule-title">No smoking indoors <span class="fee-red">— €250 fee applies</span></div><!-- TODO: balcony/terrace? --><div class="rule-desc">Smoking is only permitted outdoors. Please close the window or door when smoking outside.</div></div></li>
+      <li class="rule-item"><span class="rule-icon">🌿</span><div><div class="rule-title">Help us keep it green</div><div class="rule-desc">Switch off lights and air conditioning when you head out — even for a short while.</div></div></li>
+      <li class="rule-item"><span class="rule-icon">🗑️</span><div><div class="rule-title">Garbage collection</div><div class="rule-desc">You'll find the <strong>collection schedule</strong> inside the house, with the days and times for each type of waste.</div></div></li>
+      <li class="rule-item"><span class="rule-icon">🤫</span><div><div class="rule-title">Noise &amp; neighbours</div><div class="rule-desc">Please keep noise low between 11:00 PM and 8:00 AM.</div></div></li>
+      <li class="rule-item"><span class="rule-icon">🎉</span><div><div class="rule-title">No parties or events <span class="fee-red">— €250 fee applies</span></div><div class="rule-desc">Parties and events of any kind are not permitted at the property.</div></div></li>
+      <li class="rule-item"><span class="rule-icon">🔑</span><div><div class="rule-title">Keys</div><div class="rule-desc">Take your keys with you whenever you leave the house. At check-out, please <strong>put them back in the key locker</strong> at the entrance.</div></div></li>
+      <li class="rule-item"><span class="rule-icon">🧺</span><div><div class="rule-title">Towels <span class="fee-red">— fee based on damage</span></div><div class="rule-desc">Please do not heavily stain towels. Replacement costs will apply if towels are damaged beyond normal use.</div></div></li>
+      <li class="rule-item"><span class="rule-icon">🐾</span><div><div class="rule-title">No pets</div><div class="rule-desc">Pets are not permitted at the property.</div></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- GOOD TO KNOW -->
+<section class="sec" id="know">
+  <div class="inner">
+    <div class="eyebrow rv">Before you settle in</div>
+    <div class="sec-title rv d1">Good to Know</div>
+    <div class="rule rv d1"></div>
+    <div class="know-grid rv d2">
+      <div class="know-card"><div class="know-title">🔌 UK plug sockets</div><div class="know-desc">Malta uses three-pin UK-style plugs. Bring a universal adapter if needed.</div></div>
+      <div class="know-card"><div class="know-title">☕ Coffee machine</div><div class="know-desc">The house has a <strong>Lavazza</strong> coffee machine — pick up capsules at any local supermarket.</div></div>
+      <div class="know-card"><div class="know-title">🏡 Traditional farmhouse</div><div class="know-desc">A Maltese <em>razzett</em> — quiet surroundings, with the beaches and restaurants of St Paul's Bay close by.</div></div>
+      <div class="know-card"><div class="know-title">🗣️ Language</div><div class="know-desc">English is widely spoken. Locals also speak Maltese — a few words go a long way.</div></div>
+      <div class="know-card"><div class="know-title">💳 Currency</div><div class="know-desc">Malta uses the Euro (€). Cards are widely accepted.</div></div>
+      <div class="know-card"><div class="know-title">🧴 Toiletries</div><div class="know-desc">Shampoo and body wash are provided. Just bring anything else you need.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCAL ESSENTIALS -->
+<section class="sec" id="essentials">
+  <div class="inner">
+    <div class="eyebrow rv">Nearby</div>
+    <div class="sec-title rv d1">Local Essentials</div>
+    <div class="rule rv d1"></div>
+    <div class="ess-list rv d2">
+      <a href="https://www.google.com/maps/search/Lidl+Triq+Burmarrad+Malta" target="_blank" rel="noopener" class="ess-item"><div class="ess-left"><span class="ess-icon">🛒</span><div><div class="ess-name">Lidl, Triq Burmarrad</div><div class="ess-detail">Closest supermarket · Daily 7 AM–10 PM</div></div></div><span class="map-link">Map &rarr;</span></a>
+      <a href="https://www.google.com/maps/search/Eurosaver+Bugibba+Malta" target="_blank" rel="noopener" class="ess-item"><div class="ess-left"><span class="ess-icon">🌙</span><div><div class="ess-name">Eurosaver Bugibba</div><div class="ess-detail">Open 24 hours</div></div></div><span class="map-link">Map &rarr;</span></a>
+      <a href="https://www.google.com/maps/search/Spar+Bugibba+Malta" target="_blank" rel="noopener" class="ess-item"><div class="ess-left"><span class="ess-icon">🌙</span><div><div class="ess-name">Spar Bugibba</div><div class="ess-detail">Open 24 hours</div></div></div><span class="map-link">Map &rarr;</span></a>
+      <a href="https://www.google.com/maps/search/Kennedy+bus+stop+Burmarrad+Malta" target="_blank" rel="noopener" class="ess-item"><div class="ess-left"><span class="ess-icon">🚌</span><div><div class="ess-name">Kennedy &amp; Wileg bus stops</div><div class="ess-detail">A short walk away</div></div></div><span class="map-link">Map &rarr;</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- EAT & DRINK -->
+<section class="sec" id="eat">
+  <div class="inner">
+    <div class="eyebrow rv">Our picks</div>
+    <div class="sec-title rv d1">Eat &amp; Drink</div>
+    <div class="rule rv d1"></div>
+    <p style="font-size:.88rem;color:#222;margin-bottom:4px;line-height:1.75;" class="rv d2">A few places we enjoy around St Paul's Bay — a good starting point for your stay.</p>
+
+    <div class="resto-grid rv d1" style="margin-top:20px;">
+      <a class="resto-card" href="https://maps.app.goo.gl/96DqMavX9eUngopN6?g_st=ic" target="_blank" rel="noopener"><div class="resto-name">Ta' Cassia Salina</div><div class="resto-tag">Maltese · Traditional</div><div class="resto-desc">A typical Maltese restaurant — the place to try local dishes in a warm, traditional setting.</div><div class="resto-map">Map &rarr;</div></a>
+      <a class="resto-card" href="https://maps.app.goo.gl/14QR2zxsV4zXBohW8?g_st=ic" target="_blank" rel="noopener"><div class="resto-name">Zigumar</div><div class="resto-tag">Restaurant · St Paul's Bay</div><div class="resto-desc">A well-loved local restaurant in St Paul's Bay — a great choice for a relaxed lunch or dinner.</div><div class="resto-map">Map &rarr;</div></a>
+      <a class="resto-card" href="https://maps.app.goo.gl/m3ucjKjn7A91dgJAA?g_st=ic" target="_blank" rel="noopener"><div class="resto-name">Made in Sud</div><div class="resto-tag">Pizza</div><div class="resto-desc">Our pick for pizza — easy, tasty and perfect for a casual night out or a takeaway.</div><div class="resto-map">Map &rarr;</div></a>
+      <a class="resto-card" href="https://maps.app.goo.gl/bAQBwG6tH76emAsb8?g_st=ic" target="_blank" rel="noopener"><div class="resto-name">Café del Mar Malta</div><div class="resto-tag">Lido · Sunset</div><div class="resto-desc">Iconic seafront lido with pools, cocktails and music — the spot for a sunset drink.</div><div class="resto-map">Map &rarr;</div></a>
+    </div>
+  </div>
+</section>
+
+<!-- GETTING AROUND -->
+<section class="sec" id="transport">
+  <div class="inner">
+    <div class="eyebrow rv">Mobility</div>
+    <div class="sec-title rv d1">Getting Around</div>
+    <div class="rule rv d1"></div>
+    <div class="transport-list rv d2">
+      <div class="transport-card"><span class="transport-icon">🚌</span><div><div class="transport-name">Bus</div><div class="transport-desc">The nearest stops, <strong>Kennedy</strong> and <strong>Wileg</strong>, are a short walk away — with connections to Valletta, Mosta and Bugibba/Qawra.</div></div></div>
+      <div class="transport-card"><span class="transport-icon">🚗</span><div><div class="transport-name">Bolt</div><div class="transport-desc">Bolt operates in Malta — reliable especially at night or for longer distances.</div></div></div>
+      <div class="transport-card"><span class="transport-icon">✈️</span><div><div class="transport-name">Airport Transfer</div><div class="transport-desc">We can arrange a private airport transfer on request. Just ask us in advance.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MUST-SEE -->
+<section class="sec" id="mustsee">
+  <div class="inner">
+    <div class="eyebrow rv">Worth your time</div>
+    <div class="sec-title rv d1">Must-See Nearby</div>
+    <div class="rule rv d1"></div>
+    <div class="places-list rv d2">
+      <a href="https://maps.app.goo.gl/wiRucmSguVDu6Kdx6?g_st=ic" target="_blank" rel="noopener" class="place-card"><span class="map-link" style="flex-shrink:0;">Map &rarr;</span><div><div class="place-name">Tal-Qadi Temple</div><div class="place-desc">A prehistoric megalithic temple close to the house — a small, quiet piece of Malta's ancient past.</div></div></a>
+      <a href="https://maps.app.goo.gl/mMaYXi1viPDvNq886" target="_blank" rel="noopener" class="place-card"><span class="map-link" style="flex-shrink:0;">Map &rarr;</span><div><div class="place-name">Valletta Historic Centre</div><div class="place-desc">A UNESCO World Heritage city. Walk the main streets, find the side alleys.</div></div></a>
+      <a href="https://maps.app.goo.gl/jd4US658mUzca87y9" target="_blank" rel="noopener" class="place-card"><span class="map-link" style="flex-shrink:0;">Map &rarr;</span><div><div class="place-name">Upper Barrakka Gardens</div><div class="place-desc">Malta's most iconic viewpoint — sweeping views over the Grand Harbour. Stunning at sunset.</div></div></a>
+      <a href="https://maps.app.goo.gl/vPsDDBGt1f6Dszrq8" target="_blank" rel="noopener" class="place-card"><span class="map-link" style="flex-shrink:0;">Map &rarr;</span><div><div class="place-name">St John's Co-Cathedral</div><div class="place-desc">One of the most ornate Baroque interiors in Europe and home to Caravaggio's largest painting.</div></div></a>
+      <a href="https://maps.app.goo.gl/Brj6M2TX8GqADMzq7" target="_blank" rel="noopener" class="place-card"><span class="map-link" style="flex-shrink:0;">Map &rarr;</span><div><div class="place-name">Fort St Elmo</div><div class="place-desc">A 16th-century fortress at the tip of Valletta, now home to the National War Museum.</div></div></a>
+      <a href="https://www.google.com/maps/place/Mdina+Malta" target="_blank" rel="noopener" class="place-card"><span class="map-link" style="flex-shrink:0;">Map &rarr;</span><div><div class="place-name">Mdina — The Silent City</div><div class="place-desc">Malta's ancient walled capital — narrow stone streets and grand palazzos. Best visited early morning.</div></div></a>
+      <a href="https://maps.app.goo.gl/6o2PbehNBpmxZBuf9" target="_blank" rel="noopener" class="place-card"><span class="map-link" style="flex-shrink:0;">Map &rarr;</span><div><div class="place-name">The Three Cities</div><div class="place-desc">Birgu, Senglea, and Bormla — historic fortified towns across the harbour.</div></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- BEACHES -->
+<section class="sec" id="beaches">
+  <div class="inner">
+    <div class="eyebrow rv">Sea &amp; Sun</div>
+    <div class="sec-title rv d1">Beaches</div>
+    <div class="rule rv d1"></div>
+    <div class="beach-grid rv d2">
+      <div class="beach-card"><span class="beach-icon">🌊</span><div class="beach-name">Bugibba &amp; Qawra rocks</div><div class="beach-time">~10 min by car</div></div>
+      <div class="beach-card"><span class="beach-icon">🏖️</span><div class="beach-name">Golden Bay</div><div class="beach-time">~15 min by car</div></div>
+      <div class="beach-card"><span class="beach-icon">🏖️</span><div class="beach-name">Għajn Tuffieħa</div><div class="beach-time">~15 min by car</div></div>
+      <div class="beach-card"><span class="beach-icon">🏝️</span><div class="beach-name">Mellieħa Bay</div><div class="beach-time">~15 min by car</div></div>
+      <div class="beach-card"><span class="beach-icon">🌅</span><div class="beach-name">Paradise Bay</div><div class="beach-time">~20 min by car</div></div>
+      <div class="beach-card"><span class="beach-icon">🌊</span><div class="beach-name">St Peter's Pool</div><div class="beach-time">~40 min by car</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DAY TRIPS -->
+<section class="sec" id="daytrips">
+  <div class="inner">
+    <div class="eyebrow rv">Further afield</div>
+    <div class="sec-title rv d1">Day Trips</div>
+    <div class="rule rv d1"></div>
+    <div class="trips-list rv d2">
+      <div class="trip-card"><div class="trip-name">⛵ Gozo</div><div class="trip-how">Ferry from Čirkewwa · ~20 min by car</div><div class="trip-desc">Malta's sister island — slower, greener, worth a full day.</div></div>
+      <div class="trip-card"><div class="trip-name">🐟 Comino &amp; Blue Lagoon</div><div class="trip-how">Boat trips from Bugibba, Mellieħa or Čirkewwa</div><div class="trip-desc">Malta's most iconic swimming spot. Arrive early in summer.</div></div>
+      <div class="trip-card"><div class="trip-name">🚤 Coastal Boat Tour</div><div class="trip-how">Departs from Bugibba &amp; Qawra</div><div class="trip-desc">See Malta from the water — caves, coves, and coastline you can't reach on foot.</div></div>
+      <div class="trip-card"><div class="trip-name">🕳️ Blue Grotto</div><div class="trip-how">Boat trip from Wied iż-Żurrieq · ~40 min by car</div><div class="trip-desc">Sea caves with striking blue water reflections. Best in the morning when the light hits the caves.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec" id="contact">
+  <div class="inner">
+    <div class="eyebrow rv">We're here</div>
+    <div class="sec-title rv d1">Contact</div>
+    <div class="rule rv d1"></div>
+    <p style="font-size:.88rem;color:#222;margin-bottom:20px;line-height:1.75;" class="rv d2">Reach out at any point during your stay — we'll get back to you as soon as possible.</p>
+    <a class="contact-card rv d2" href="https://wa.me/35677358664" target="_blank" rel="noopener">
+      <div class="contact-av">M</div>
+      <div><div class="contact-name">Martina</div><div class="contact-role">Director · Arco Collection</div><div class="contact-num">+356 7735 8664</div>
+      <span class="wa-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> WhatsApp</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<div class="closing">
+  <div class="closing-logo"><img src="arco.png" alt="Arco Collection"></div>
+  <div class="closing-title">Enjoy every moment of your stay.</div>
+  <div class="closing-sub">St Paul's Bay rewards those who take it slow. We hope this guide makes everything a little easier.</div>
+  <a href="https://wa.me/35677358664" target="_blank" rel="noopener" class="closing-btn">💬 Need anything? Message us</a>
+  <div class="closing-tag">Arco Collection · St Paul's Bay, Malta</div>
+</div>
+
+<script>
+function copyWifi(){
+  var p=document.getElementById('wifiPass').textContent;
+  var b=document.getElementById('wifiBtn');
+  if(navigator.clipboard){navigator.clipboard.writeText(p).then(function(){b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy password';},2000);});}
+}
+var links=document.querySelectorAll('a[href^="#"]');
+for(var i=0;i<links.length;i++){links[i].addEventListener('click',function(e){var t=document.querySelector(this.getAttribute('href'));if(!t)return;e.preventDefault();window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-60,behavior:'smooth'});});}
+var els=document.querySelectorAll('.rv');
+if('IntersectionObserver' in window){var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:0.1});els.forEach(function(el){obs.observe(el);});}
+else{els.forEach(function(el){el.classList.add('in');});}
+</script>
+</div><!-- end gbContent -->
+
+<script>
+var PIN = '629619';
+var gate = document.getElementById('pinGate');
+var gb = document.getElementById('gbContent');
+var inp = document.getElementById('pgInput');
+var btn = document.getElementById('pgBtn');
+var err = document.getElementById('pgErr');
+
+function unlock() {
+  gate.style.display = 'none';
+  gb.style.display = 'block';
+  try { localStorage.setItem('arco_razzett_karmena', '1'); } catch(e) {}
+}
+
+try { if (localStorage.getItem('arco_razzett_karmena') === '1') { unlock(); } } catch(e) {}
+
+function check() {
+  var v = (inp.value || '').replace(/[^0-9]/g, '');
+  if (v === PIN) {
+    unlock();
+  } else {
+    err.classList.add('on');
+    inp.classList.add('error');
+    inp.value = '';
+    setTimeout(function() { err.classList.remove('on'); inp.classList.remove('error'); }, 2500);
+  }
+}
+
+btn.onclick = check;
+inp.onkeyup = function(e) { if (e.keyCode === 13) check(); };
+</script>
+
+</body>
+</html>
